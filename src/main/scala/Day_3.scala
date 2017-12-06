@@ -1,28 +1,14 @@
-import helpers.Timer
+import helpers.{ResultPrinter, Timer}
 import models._
 
 object Day_3 extends App {
 
   val input = 312051
 
-  val t1 = Timer.start()
-  val memory1 = buildMemory(input)
-  val result1 = memory1.findDistance(input)
-  val ms1 = t1.stop()
+  val result1 = Timer.time(buildMemory(input).findDistance(input))
+  val result2 = Timer.time(buildIncreasingMemory(input).findFirstGreaterThan(input))
 
-  val t2 = Timer.start()
-  val memory2 = buildIncreasingMemory(input)
-  val result2 = memory2.findFirstGreaterThan(input)
-  val ms2 = t2.stop()
-
-  println(result1)
-  println(s"In $ms1 ms")
-
-  println("---------")
-
-  println(result2)
-  println(s"In $ms2 ms")
-
+  ResultPrinter.printResult(result1, result2)
 
   // TODO: Runs in ~400 ms. There probably is better way to do this
   def buildMemory(size: Int, fillWithZeroes: Boolean = false): Memory = {

@@ -1,4 +1,4 @@
-import helpers.Timer
+import helpers.{ResultPrinter, Timer}
 
 import scala.io.Source
 
@@ -6,22 +6,10 @@ object Day_1 extends App {
 
   val input = Source.fromResource("day-1.txt").getLines().mkString
 
-  val t1 = Timer.start()
-  val result1 = calculateCaptchaNext(input)
-  val ms1 = t1.stop()
+  val result1 = Timer.time(calculateCaptchaNext(input))
+  val result2 = Timer.time(calculateCaptchaHalf(input))
 
-  val t2 = Timer.start()
-  val result2 = calculateCaptchaHalf(input)
-  val ms2 = t2.stop()
-
-  println(result1)
-  println(s"In $ms1 ms")
-
-  println("---------")
-
-  println(result2)
-  println(s"In $ms2 ms")
-
+  ResultPrinter.printResult(result1, result2)
 
   def calculateCaptchaNext(input: String): Int = {
     val digits = input.map(_.asDigit)

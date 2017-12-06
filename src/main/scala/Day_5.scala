@@ -1,4 +1,4 @@
-import helpers.Timer
+import helpers.{ResultPrinter, Timer}
 
 import scala.io.Source
 
@@ -6,23 +6,12 @@ object Day_5 extends App {
 
   val input = Source.fromResource("day-5.txt").getLines().map(_.toInt).toSeq
 
-  val t1 = Timer.start()
-  val result1 = countStepsToExitFast(input)
-  val ms1 = t1.stop()
+  val result1 = Timer.time(countStepsToExit(input))
+  val result2 = Timer.time(countStepsToExitAlternative(input))
 
-  val t2 = Timer.start()
-  val result2 = countStepsToExitFastAlternative(input)
-  val ms2 = t2.stop()
+  ResultPrinter.printResult(result1, result2)
 
-  println(result1)
-  println(s"In $ms1 ms")
-
-  println("---------")
-
-  println(result2)
-  println(s"In $ms2 ms")
-
-  def countStepsToExitFast(instructions: Seq[Int]): Int = {
+  def countStepsToExit(instructions: Seq[Int]): Int = {
     val arr = instructions.toArray
     val lastIndex = arr.length - 1
 
@@ -39,7 +28,7 @@ object Day_5 extends App {
     stepsTaken
   }
 
-  def countStepsToExitFastAlternative(instructions: Seq[Int]): Int = {
+  def countStepsToExitAlternative(instructions: Seq[Int]): Int = {
     val arr = instructions.toArray
     val lastIndex = arr.length - 1
 
@@ -50,8 +39,7 @@ object Day_5 extends App {
       val previousIndex = currentIndex
       currentIndex = currentIndex + arr(currentIndex)
       stepsTaken += 1
-      val change = if (arr(previousIndex) >= 3) -1 else 1
-      arr(previousIndex) += change
+      arr(previousIndex) += (if (arr(previousIndex) >= 3) -1 else 1)
     }
 
     stepsTaken
