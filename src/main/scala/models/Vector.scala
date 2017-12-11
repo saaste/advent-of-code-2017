@@ -4,6 +4,7 @@ import scala.math.abs
 
 case class Vector(x: Int, y: Int) {
 
+  override def toString: String = s"$x,$y"
   def toDirection: String = (x, y) match {
     case (1, 0) => "RIGHT"
     case (0, 1) => "UP"
