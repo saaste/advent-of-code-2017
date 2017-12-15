@@ -54,8 +54,4 @@ object Day_15 extends App {
 
   }
 
-  private def getBits(i: BigInt, significantBits: Int = 16): BigInt = {
-    i & ((1 << significantBits) - 1)
-  }
-
 }
