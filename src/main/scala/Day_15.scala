@@ -11,26 +11,26 @@ object Day_15 extends App {
   ResultPrinter.printResult(result1, result2)
 
   def test1(): Int = {
-    var previousA: BigInt = 699
-    var previousB: BigInt = 124
+    var previousA: Long = 699
+    var previousB: Long = 124
     var matches: Int = 0
 
     (1 to 40000000).foreach { _ =>
-      previousA = (previousA * 16807) % 2147483647
-      previousB = (previousB * 48271) % 2147483647
+      previousA = (previousA * 16807L) % 2147483647L
+      previousB = (previousB * 48271L) % 2147483647L
 
-      if (getBits(previousA) == getBits(previousB)) matches += 1
+      if (previousA.toShort == previousB.toShort) matches += 1
     }
 
     matches
   }
 
   def test2(): Int = {
-    var previousA: BigInt = 699
-    var previousB: BigInt = 124
+    var previousA: Long = 699
+    var previousB: Long = 124
 
-    var aNumbers = ArrayBuffer.empty[BigInt]
-    var bNumbers = ArrayBuffer.empty[BigInt]
+    var aNumbers = ArrayBuffer.empty[Long]
+    var bNumbers = ArrayBuffer.empty[Long]
 
 
     while (aNumbers.length < 5000000) {
@@ -46,16 +46,12 @@ object Day_15 extends App {
     var matches: Int = 0
 
     aNumbers.indices.foreach { i =>
-      if (getBits(aNumbers(i)) == getBits(bNumbers(i))) matches += 1
+      if (aNumbers(i).toShort == bNumbers(i).toShort) matches += 1
     }
 
     matches
 
 
-  }
-
-  private def getBits(i: BigInt, significantBits: Int = 16): BigInt = {
-    i & ((1 << significantBits) - 1)
   }
 
 }
